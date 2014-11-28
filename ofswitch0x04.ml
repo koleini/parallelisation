@@ -1811,7 +1811,7 @@ let rec table_lookup st table (frame_match : packet_match)frame port_id action_s
 		return ()
 
 	  done  <?> (
-		(* Thread 1. poping frames out and sending them on the ports *)
+		(* Thread 2. poping frames out and sending them on the ports *)
 		(* limits the number of threads *)
 		let rec send queue ths =
 		  Lwt_stream.next queue >>= fun frame ->
