@@ -1798,7 +1798,8 @@ let rec table_lookup st table (frame_match : packet_match)frame port_id action_s
 
 	Lwt_list.iter_p (fun (p : port) -> (* iterates over ports *)
 	  
-	  while_lwt true do (* pushing frames that are recieved on ports in output queue of port 1 (seconf port) *)
+	  while_lwt true do 
+		(* Thread 1. pushing frames that are recieved on ports in output queue of port 1 (seconf port) *)
 
 		let pt = Array.get st.ports 1 in
         lwt _ = Lwt_stream.next p.in_queue >>= fun frame -> send_frame pt frame (* process_frame_inner st p *) in
@@ -1810,7 +1811,7 @@ let rec table_lookup st table (frame_match : packet_match)frame port_id action_s
 		return ()
 
 	  done  <?> (
-
+		(* Thread 1. poping frames out and sending them on the ports *)
 		(* limits the number of threads *)
 		let rec send queue ths =
 		  Lwt_stream.next queue >>= fun frame ->
