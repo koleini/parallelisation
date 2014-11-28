@@ -1817,10 +1817,10 @@ let rec table_lookup st table (frame_match : packet_match)frame port_id action_s
 		  Lwt_stream.next queue >>= fun frame ->
 			if !th_num < 5 then
 			  let th_num = !th_num + 1 in
-			  send queue (emsg::ths)
+			  send queue (frame::ths)
 			else
 			  let _ = th_num := 0 in
-			  Lwt.join (List.map (fun f -> (E.write p.ethif f)) (emsg::ths)) 
+			  Lwt.join (List.map (fun f -> (E.write p.ethif f)) (frame::ths)) 
 			  >> send queue []
 		in
 		  send p.out_queue []
