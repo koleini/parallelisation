@@ -1,6 +1,6 @@
 open Mirage
 
-let main = foreign "Unikernel.Main" (console @-> network @-> network @-> job)
+let main = foreign "Unikernel.Main" (console @-> network @-> job)
 
 let unix_libs =
   match get_mode () with 
@@ -27,12 +27,12 @@ let stack console =
   | `Direct, _ -> direct_stackv4_with_default_ipv4 console tap0
   | `Socket, _ -> socket_stackv4 console [Ipaddr.V4.any]
 
-let tracing = mprof_trace ~size:1000000 ()
+(* let tracing = mprof_trace ~size:1000000 () *)
 
 let () =
   add_to_ocamlfind_libraries
-    ([ "tcpip.ethif"; "tcpip.tcpv4"; "tcpip.udpv4"; "tcpip.dhcpv4"; "tcpip.channel"; "cstruct.syntax"; "core_kernel"; "sexplib"; "sexplib.syntax"; "packet"; ] @ unix_libs);
+    ([ "tcpip.ethif"; "tcpip"; "cstruct.syntax"; "core_kernel"; "sexplib"; "sexplib.syntax"; "packet"; ] @ unix_libs);
 
-  register "ofswitch" ~tracing [
-    main $ default_console $ (netif "1") $ (netif "2")
+  register "ofswitch" (* ~tracing *) [
+    main $ default_console $ (netif "2")
   ]
