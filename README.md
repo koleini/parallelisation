@@ -27,7 +27,7 @@ Test configuration
 mirage-net-xen
 --------------
 
------------               -----------
+ _________                 _________
 |         | eth0     tap0 |         |tap1
 |traff-gen|----       ----|Unikernel|----
 |         |   |       |   |         |   |
