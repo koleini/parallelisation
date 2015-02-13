@@ -1,10 +1,10 @@
-This is a mirage network performance test script (www.)
+A mirage network performance test script (www.)
 
 
 Test environment
 ----------------
 
-Xen server with internet/network connection to download required packages, and for traffic generator VM to request IP address from DHCP server.
+Xen server with internet/network connection to download required packages, and for the traffic generator to request IP address from DHCP server.
 
 
 To use
@@ -15,4 +15,12 @@ Run the following command on the Xen server:
 ```
 sudo bash mir-perf.sh <library> <version>
 ```
+
+```library``` is the name of mirage library for the performance test. For the first release, we only support ```mirage-net-xen```. In the above command, ```version``` is the version number (commit hash) of the library on the github.
+
+
+Library test configuration
+--------------------------
+
+
 
