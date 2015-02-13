@@ -16,11 +16,26 @@ Run the following command on the Xen server:
 sudo bash mir-perf.sh <library> <version>
 ```
 
-```library``` is the name of mirage library for the performance test. For the first release, we only support ```mirage-net-xen```. In the above command, ```version``` is the version number (commit hash) of the library on the github.
+```library``` is the name of mirage library for the performance test. For the first release, we only support ```mirage-net-xen```. In the above command, ```version``` is the version number (commit hash) of the library on the github. For instance, you can write:
 
+```
+sudo bash mir-perf.sh mirage-net-xen b06361d
+```
 
-Library test configuration
---------------------------
+Test configuration
+------------------
+mirage-net-xen
+--------------
 
-
+-----------               -----------
+|         | eth0     tap0 |         |tap1
+|traff-gen|----       ----|Unikernel|----
+|         |   |       |   |         |   |
+-----------   |  if1  |   -----------   | if2
+______________|_______|_________________|_____
+              ---------                 -
+                  ^                     ^
+Dom0              |_____________________|
+                   bmon Bandwith Monitor
+                   
 
